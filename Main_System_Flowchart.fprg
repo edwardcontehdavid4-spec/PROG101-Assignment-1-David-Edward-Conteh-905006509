@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="4.2">
+    <attributes>
+        <attribute name="name" value="0a5n syste0"/>
+        <attribute name="authors" value="pro"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2026-11-02 11:46:30 AM"/>
+        <attribute name="created" value="cHJvO0RFU0tUT1AtQVZSSEVGODsyMDI2LTExLTAxOzAxOjM1OjA3IFBNOzI2OTM="/>
+        <attribute name="edited" value="cHJvO0RFU0tUT1AtQVZSSEVGODsyMDI2LTExLTAyOzExOjQ2OjMwIEFNOzQ7Mjc4OQ=="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="choice" type="Integer" array="False" size=""/>
+            <output expression="&quot;Display main menu&quot;" newline="True"/>
+            <input variable="choice"/>
+            <if expression="choice = 1">
+                <then>
+                    <call expression="RecordRequest"/>
+                </then>
+                <else>
+                    <if expression="choice = 2">
+                        <then>
+                            <call expression="ViewPendingRequests"/>
+                        </then>
+                        <else>
+                            <if expression="choice = 3">
+                                <then>
+                                    <call expression="UpdateRequestStatus"/>
+                                </then>
+                                <else>
+                                    <if expression="choice = 4">
+                                        <then>
+                                            <output expression="&quot;Exiting the system&quot;" newline="True"/>
+                                        </then>
+                                        <else>
+                                            <output expression="&quot;Invalid option&quot;" newline="True"/>
+                                        </else>
+                                    </if>
+                                </else>
+                            </if>
+                        </else>
+                    </if>
+                </else>
+            </if>
+            <do expression="choice &lt;&gt; 4"/>
+        </body>
+    </function>
+    <function name="RecordRequest" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="location" type="String" array="False" size=""/>
+            <declare name="wasteType" type="String" array="False" size=""/>
+            <declare name="requestDate" type="String" array="False" size=""/>
+            <declare name="referenceNumber" type="String" array="False" size=""/>
+            <declare name="status" type="String" array="False" size=""/>
+            <input variable="location"/>
+            <input variable="wasteType"/>
+            <input variable="requestDate"/>
+            <if expression="location = &quot;&quot; OR wasteType = &quot;&quot; OR requestDate = &quot;&quot;">
+                <then>
+                    <output expression="&quot;Complete all required information&quot;" newline="True"/>
+                </then>
+                <else>
+                    <assign variable="referenceNumber" expression="&quot;CWMS-001&quot;"/>
+                    <assign variable="status" expression="&quot;Pending&quot;"/>
+                    <output expression="&quot;Request recorded successfully&quot;" newline="True"/>
+                </else>
+            </if>
+        </body>
+    </function>
+    <function name="UpdateRequestStatus" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="status" type="String" array="False" size=""/>
+            <declare name="referenceNumber" type="String" array="False" size=""/>
+            <input variable="referenceNumber"/>
+            <declare name="wasteCollected" type="Boolean" array="False" size=""/>
+            <if expression="referenceNumber = &quot;CWMS-001&quot;">
+                <then>
+                    <input variable="wasteCollected"/>
+                    <if expression="wasteCollected = True">
+                        <then>
+                            <assign variable="status" expression="&quot;Completed&quot;"/>
+                            <output expression="&quot;Status updated&quot;" newline="True"/>
+                        </then>
+                        <else>
+                            <output expression="&quot;Request is still pending&quot;" newline="True"/>
+                        </else>
+                    </if>
+                </then>
+                <else>
+                    <output expression="&quot;Request not found&quot;" newline="True"/>
+                </else>
+            </if>
+        </body>
+    </function>
+    <function name="ViewPendingRequests" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="status" type="String" array="False" size=""/>
+            <output expression="&quot;Searching for pending requests...&quot;" newline="True"/>
+            <if expression="status = &quot;Pending&quot;">
+                <then>
+                    <output expression="&quot;Pending requests found&quot;" newline="True"/>
+                </then>
+                <else>
+                    <output expression="&quot;No pending requests&quot;" newline="True"/>
+                </else>
+            </if>
+        </body>
+    </function>
+</flowgorithm>
